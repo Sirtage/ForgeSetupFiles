@@ -22,28 +22,22 @@ import java.util.function.Supplier;
 public class Register {
 
     public static final class Content {
-        /*
-            Item register:
-            public static final RegistryObject<Item> IDFK = Content.ITEMS.register("idfk", idfk::new);
-
-
-        */
         public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, SomeTest.MOD_ID);
         public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, SomeTest.MOD_ID);
 
 
 
 
-        //Items
-        public static final RegistryObject<Item> IDFK = Content.ITEMS.register("idfk", idfk::new);
-        public static final RegistryObject<Item> HNW = Content.ITEMS.register("helnewcon", HelloNewContent::new);
+        /*  
+        
+            Items:
+                public static final RegistryObject<Item> ITEM = Content.ITEMS.register(item_id, item_class::new);
 
-        //Tools
-        public static final RegistryObject<ToolItem> SWAND = Content.ITEMS.register("sstaff", sstaff::new);
-
-        //Blocks
-        public static final RegistryObject<Block> BSHIT = registryBlock("blackshit", BlackShit::new);
-        public static final RegistryObject<Block> TESTBLOCK = registryBlock("testblock", TestBlock::new);
+            Blocks:
+                public static final RegistryObject<Block> BLOCK = registryBlock({block_id}, block_class::new);\
+                
+                
+        */     
     }
 
 
