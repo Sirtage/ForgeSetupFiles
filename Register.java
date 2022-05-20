@@ -29,21 +29,6 @@ public class Register {
 
         public static final DeferredRegister<Item> items = DeferredRegister.create(ForgeRegistries.ITEMS, SomeTest.MOD_ID);
         public static final DeferredRegister<Block> blocks = DeferredRegister.create(ForgeRegistries.BLOCKS, SomeTest.MOD_ID);
-
-        //Items
-        public static final RegistryObject<Item> IDFK = items.register("idfk", idfk::new);
-        public static final RegistryObject<Item> HNW = items.register("helnewcon", HelloNewContent::new);
-        public static final RegistryObject<Item> SHIT_REMOVER = items.register("shit_remover", ShitRemover::new);
-
-        //Tools
-        public static final RegistryObject<ToolItem> SWAND = items.register("sstaff", sstaff::new);
-
-        //Blocks
-        public static final RegistryObject<Block> BSHIT = Register.registryBlock("blackshit", BlackShit::new);
-        public static final RegistryObject<Block> TESTBLOCK = Register.registryBlock("testblock", TestBlock::new);
-
-        //Tags
-        public static final Tags.IOptionalNamedTag<Block> IS_SHIT = Register.registerBlockTag(SomeTest.MOD_ID, "is_shit");
     }
 
 
