@@ -2,6 +2,7 @@ package net.sirtage.reg;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.Item;
 import net.minecraft.item.ToolItem;
 import net.minecraft.tags.BlockTags;
@@ -13,14 +14,6 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.sirtage.SomeTest;
-
-import net.sirtage.content.Tabs;
-import net.sirtage.content.blocks.BlackShit;
-import net.sirtage.content.blocks.TestBlock;
-import net.sirtage.content.items.HelloNewContent;
-import net.sirtage.content.items.ShitRemover;
-import net.sirtage.content.items.idfk;
-import net.sirtage.content.items.sstaff;
 
 import java.util.function.Supplier;
 
@@ -44,7 +37,7 @@ public class Register {
     }
 
     public static <T extends Block> void registryBlockItem(String name, RegistryObject<T> block) {
-        content.items.register(name, () -> new BlockItem(block.get(), new Item.Properties().group(Tabs.SirMainTab)));
+        content.items.register(name, () -> new BlockItem(block.get(), new Item.Properties().group(ItemGroup.BUILDING_BLOCKS)));
     }
 
     public static Tags.IOptionalNamedTag<Item> registerItemTag(String namespace, String tagName) {
