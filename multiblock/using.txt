@@ -1,0 +1,3 @@
+DeposedBlock is class which can contain blockstate and 3 offset coordinates. Using when you need to fixate cords relative other(start) cords.
+MultiBlock class is extendable multiblock container class.
+IMultiBlock - multiblock interface.
