@@ -2,7 +2,6 @@ package net.sirtage.content.multiblock;
 
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.sirtage.WeatherCrystals;
 
 import java.util.List;
 
@@ -13,6 +12,7 @@ public class MultiBlock implements IMultiBlock{
     public MultiBlock(List<DeposedBlock> blocks) {
         this.blocks=blocks;
     }
+    @Override
     public boolean scan(World world, BlockPos startPos) {
         for(DeposedBlock depblock: blocks) {
             if (world.getBlockState(depblock.getRelativePos(startPos))!=depblock.getBlockState()) {
