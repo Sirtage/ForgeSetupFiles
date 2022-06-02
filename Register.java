@@ -19,9 +19,9 @@ import java.util.function.Supplier;
 public class Register {
     public static class content {
 
-        public static final DeferredRegister<Item> items = DeferredRegister.create(ForgeRegistries.ITEMS, SomeTest.MOD_ID);
-        public static final DeferredRegister<Block> blocks = DeferredRegister.create(ForgeRegistries.BLOCKS, SomeTest.MOD_ID);
-        public static final DeferredRegister<TileEntityType<?>> tileEntities = DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, SomeTest.MOD_ID);
+        public static final DeferredRegister<Item> items = DeferredRegister.create(ForgeRegistries.ITEMS, <MOD_ID>);
+        public static final DeferredRegister<Block> blocks = DeferredRegister.create(ForgeRegistries.BLOCKS, <MOD_ID>);
+        public static final DeferredRegister<TileEntityType<?>> tileEntities = DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, <MOD_ID>);
         
     }
 
