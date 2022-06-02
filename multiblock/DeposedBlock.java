@@ -10,9 +10,9 @@ import javax.annotation.Nonnull;
 import java.util.function.Supplier;
 
 public class DeposedBlock {
-    public int offsetX;
-    public int offsetY;
-    public int offsetZ;
+    public final int offsetX;
+    public final int offsetY;
+    public final int offsetZ;
 
     private BlockState block=null;
     private Lazy<Block> nonInitBlock=null;
@@ -43,7 +43,13 @@ public class DeposedBlock {
     }
 
     public BlockPos getRelativePos(@Nonnull BlockPos relativity) {
-        return new BlockPos(relativity.getX()+offsetZ,
+        return new BlockPos(relativity.getX()+offsetX,
+                relativity.getY()+offsetY,
+                relativity.getZ()+offsetZ);
+    }
+
+    public BlockPos getRelativePosWithCustomOffset(@Nonnull BlockPos relativity, int offsetX, int offsetY, int offsetZ) {
+        return new BlockPos(relativity.getX()+offsetX,
                 relativity.getY()+offsetY,
                 relativity.getZ()+offsetZ);
     }
