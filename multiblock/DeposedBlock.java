@@ -14,7 +14,7 @@ public class DeposedBlock {
     public final int offsetY;
     public final int offsetZ;
 
-    private BlockState block=null;
+    protected BlockState block=null;
     private Lazy<Block> nonInitBlock=null;
 
     public DeposedBlock(@Nonnull BlockState block, int offsetX, int offsetY, int offsetZ) {

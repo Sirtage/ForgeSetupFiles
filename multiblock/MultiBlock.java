@@ -5,15 +5,18 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-public class MultiBlock implements IMultiBlock{
+public class MultiBlock implements IMultiBlock {
 
     private final List<DeposedBlock> blocks;
 
     public MultiBlock(List<DeposedBlock> blocks) {
         this.blocks=blocks;
     }
+
     @Override
-    public boolean scan(World world, BlockPos startPos) {
+    public boolean scan(DeposedContext context) {
+        World world = context.getWorld();
+        BlockPos startPos = context.getStartPos();
         for(DeposedBlock depblock: blocks) {
             if (world.getBlockState(depblock.getRelativePos(startPos))!=depblock.getBlockState()) {
                 return false;
@@ -23,9 +26,9 @@ public class MultiBlock implements IMultiBlock{
     }
 
     @Override
-    public void construct(World world, BlockPos blockPos) {
+    public void construct(DeposedContext context) {
         for(DeposedBlock block: blocks) {
-            world.setBlockState(block.getRelativePos(blockPos), block.getBlockState());
+            context.getWorld().setBlockState(block.getRelativePos(context.getStartPos()), block.getBlockState());
         }
     }
 
