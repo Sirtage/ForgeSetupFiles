@@ -6,5 +6,6 @@ import net.minecraftforge.fml.RegistryObject;
 
 public interface IMultiBlock {
     void construct(World world, BlockPos blockPos);
+    boolean scan(World world, BlockPos startPos);
     void add(Object obj);
 }
