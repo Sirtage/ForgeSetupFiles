@@ -3,9 +3,11 @@ package net.sirtage.content.multiblock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.common.util.Lazy;
 import net.minecraftforge.fml.RegistryObject;
 
 import javax.annotation.Nonnull;
+import java.util.function.Supplier;
 
 public class DeposedBlock {
     public int offsetX;
@@ -13,7 +15,7 @@ public class DeposedBlock {
     public int offsetZ;
 
     private BlockState block=null;
-    private RegistryObject<Block> nonInitBlock=null;
+    private Lazy<Block> nonInitBlock=null;
 
     public DeposedBlock(@Nonnull BlockState block, int offsetX, int offsetY, int offsetZ) {
         this.block=block;
@@ -27,13 +29,13 @@ public class DeposedBlock {
         this.offsetY=pos.getY();
         this.offsetZ=pos.getZ();
     }
-    public DeposedBlock(@Nonnull RegistryObject<Block> nonInitBlock, int offsetX, int offsetY, int offsetZ) {
+    public DeposedBlock(@Nonnull Lazy<Block> nonInitBlock, int offsetX, int offsetY, int offsetZ) {
         this.nonInitBlock=nonInitBlock;
         this.offsetX=offsetX;
         this.offsetY=offsetY;
         this.offsetZ=offsetZ;
     }
-    public DeposedBlock(@Nonnull RegistryObject<Block> nonInitBlock, BlockPos pos) {
+    public DeposedBlock(@Nonnull Lazy<Block> nonInitBlock, BlockPos pos) {
         this.nonInitBlock=nonInitBlock;
         this.offsetX=pos.getX();
         this.offsetY=pos.getY();
