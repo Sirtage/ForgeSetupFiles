@@ -13,7 +13,6 @@ import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.sirtage.SomeTest;
 
 import java.util.function.Supplier;
 
@@ -22,12 +21,15 @@ public class Register {
 
         public static final DeferredRegister<Item> items = DeferredRegister.create(ForgeRegistries.ITEMS, SomeTest.MOD_ID);
         public static final DeferredRegister<Block> blocks = DeferredRegister.create(ForgeRegistries.BLOCKS, SomeTest.MOD_ID);
+        public static final DeferredRegister<TileEntityType<?>> tileEntities = DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, SomeTest.MOD_ID);
+        
     }
 
 
     public static void __init__() {
         content.items.register(FMLJavaModLoadingContext.get().getModEventBus());
         content.blocks.register(FMLJavaModLoadingContext.get().getModEventBus());
+        content.tileEntities.register(FMLJavaModLoadingContext.get().getModEventBus());
     }
 
     public static <T extends Block> RegistryObject<T> registryBlock(String name, Supplier<T> block) {
