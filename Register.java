@@ -20,14 +20,6 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.sirtage.SomeTest;
 
-import net.sirtage.content.Tabs;
-import net.sirtage.content.blocks.*;
-import net.sirtage.content.blocks.machine.Casing;
-import net.sirtage.content.blocks.machine.Smeltery;
-import net.sirtage.content.items.*;
-import net.sirtage.content.multiblock.DirMultiBlock;
-import ru.sirtage.tiles.ContClassBuilder;
-
 import java.util.function.Supplier;
 
 public class Register {
@@ -35,44 +27,7 @@ public class Register {
 
         public static final DeferredRegister<Item> items = DeferredRegister.create(ForgeRegistries.ITEMS, SomeTest.MOD_ID);
         public static final DeferredRegister<Block> blocks = DeferredRegister.create(ForgeRegistries.BLOCKS, SomeTest.MOD_ID);
-
-
-
-        //Items
-        public static final RegistryObject<Item> IDFK = items.register("idfk", idfk::new);
-        public static final RegistryObject<Item> HNW = items.register("helnewcon", HelloNewContent::new);
-        public static final RegistryObject<Item> SHIT_REMOVER = items.register("shit_remover", ShitRemover::new);
-        public static final RegistryObject<Item> PERSISTENT_SHIT = items.register("persistent_shit", PersistenShit::new);
-        public static final RegistryObject<Item> ULTRA_RANDOM = items.register("ultra_random", UltraRandom::new);
-        public static final RegistryObject<Item> VOID_STONE_SEEDS = items.register("void_stone_seeds", VoidStonSeed::new);
-        public static final RegistryObject<Item> ENDER_CORE = items.register("ender_core", EnderCore::new);
-
-        //Tools
-        public static final RegistryObject<ToolItem> SWAND = items.register("sstaff", sstaff::new);
-
-        //Blocks
-        public static final RegistryObject<Block> BSHIT = Register.registryBlock("blackshit", BlackShit::new);
-        public static final RegistryObject<Block> TESTBLOCK = Register.registryBlock("testblock", TestBlock::new);
-        public static final RegistryObject<Block> TEST_STAIRS = Register.registryBlock("test_stairs", TestStairs::new);
-        public static final RegistryObject<Block> CORRUPTION = Register.registryBlock("corruption", Corruption::new);
-
-        public static final RegistryObject<Block> CHUNKIUM_ORE = Register.registryBlock("chunkium_ore", ChunkiumOre::new);
-        public static final RegistryObject<Item> CHUNKIUM_INGOT = items.register("chunkium_ingot", ChunkiumIngot::new);
-
-        public static final RegistryObject<Block> VOID_STONE_CROP = blocks.register("void_stone_crop", VoidStoneCrop::new);
-
-        public static final RegistryObject<Item> SCREWDRIVER = items.register("screwdriver", Screwdriver::new);
-
-        //Tags
-        public static final Tags.IOptionalNamedTag<Block> IS_SHIT = Register.registerBlockTag(SomeTest.MOD_ID, "is_shit");
-        public static final Tags.IOptionalNamedTag<Block> CHUNKIUM_GEN = Register.registerBlockTag(SomeTest.MOD_ID, "chunkium_gen");
-
-        public static final RegistryObject<Block> SIMPLE_CASING = Register.registryBlock("simple_casing", Casing.Simple::new);
-
-
-        public static final RegistryObject<Block> SMELTERY_BLOCK = Register.registryBlock("smeltery_block",
-                () -> new Smeltery(AbstractBlock.Properties.from(Register.content.SIMPLE_CASING.get())));
-        public static final DirMultiBlock SMELTERY_MULTIBLOCK = new Smeltery.Structure();
+        
     }
 
     public static class nonPhysical {
@@ -90,7 +45,8 @@ public class Register {
                     BlockPos pos = data.readBlockPos();
                     World world = inv.player.getEntityWorld();
                     return new !type!(windowId, world, pos, inv, inv.player);
-                })));*/
+                })));
+         */
     }
 
 
