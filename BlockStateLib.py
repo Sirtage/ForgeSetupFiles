@@ -280,3 +280,59 @@ class Stairs:
         }
         return dat
 
+class Crop:
+
+    def __init__(self, index, modid, id, name, stageCount):
+        try:
+            with open(index['dir_bs']+f"{id}.json", 'w') as f:
+                json.dump(Crop.getCropBlockstate(modid, id, stageCount), f)
+                f.close()
+            print("Success: blockstate file setup completed.")
+        except:
+            print("Error: blockstate file setup failed.")
+        Crop.generateCropModels(modid, index['dir_m'], id, stageCount)
+        print("Warning: item model needs manual setup(just place <item_id>.json in models/item // or use item generate method).")
+        try:
+            lang = open(index['f_l'], 'r')
+            dat = json.load(lang)
+            dat[f"block.{modid}.{id}"] = name
+            lang.close()
+            lang = open(index['f_l'], 'w')
+            json.dump(dat, lang)
+            lang.close()
+            print("Success: crop localisation successfully added.")
+        except:
+            print("Error: crop localisation add failed.")
+
+
+
+    def generateCropModels(modid, dir, id, stageCount):
+        for i in range(stageCount):
+            try:
+                with open(dir+f"block/{id}_stage{str(i)}.json", 'w') as f:
+                    json.dump(Crop.generateCropModel(modid, id, i), f)
+                    f.close()
+                print(f"Success: crop model for stage {str(i)} setup completed.")
+            except:
+                print(f"Error: crop model for stage {str(i)} setup failed.")
+
+
+    def generateCropModel(modid, id, stage):
+        return {
+          "parent": "minecraft:block/crop",
+          "textures": {
+            "crop": f"{modid}:blocks/{id}_stage{str(stage)}"
+          }
+        }
+
+    def getCropBlockstate(modid, name, stageCount):
+        dat={
+          "variants": {
+
+          }
+        }
+        for i in range(stageCount):
+            dat["variants"]["age="+str(i)]={
+                "model": f"{modid}:block/{name}_stage{str(i)}"
+            }
+        return dat

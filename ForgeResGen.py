@@ -10,6 +10,11 @@ try:
     dlc.append("BlockStateLib")
 except:
     1
+try:
+    import JavaGen
+    dlc.append("JavaGen")
+except:
+    1
 import os
 MOD_ID='sometest'
 index={
@@ -23,13 +28,22 @@ index={
     'dir_tag': f"src/main/resources/data/{MOD_ID}/tags/",
 }
 
-dir_dwl="ForgeResGen/downloads/"
+dir_dwl= "ForgeResGen/downloads/"
 
 try:
     os.mkdir("ForgeResGen")
     os.mkdir("ForgeResGen/downloads")
 except:
     1
+
+def handJsonSetup(modid):
+    try:
+        with open("../../Desktop/test/ForgeResGen/item.json", 'w') as f:
+            json.dump({"parent": "item/generated", "textures": {"layer0": f"{modid}:items/<texture id>"}}, f)
+            f.close()
+        print("Success.")
+    except:
+        print("One of stage has error.")
 
 
 def mainSetup(modid):
@@ -198,16 +212,34 @@ def createItem(modid, eid, name):
         print("Error: item localisation add failed.")
 
 
-def createSimpleBlock(modid, eid, name):
+def createSimpleBlock(modid, eid, name, mm):
     # block_model
     try:
         mdl = open(index['dir_m'] + f"block/{eid}.json", 'w')
-        dat = {
-            "parent": "block/cube_all",
-            "textures": {
-                "all": f"{modid}:blocks/{eid}"
+        dat={}
+        if mm=='all':
+            dat = {
+                "parent": "block/cube_all",
+                "textures": {
+                    "all": f"{modid}:blocks/{eid}"
+                }
             }
-        }
+        elif mm=='sided' or mm=='rotate':
+            dat = {
+              "parent": "minecraft:block/cube",
+              "textures": {
+                  "up": f"{modid}:blocks/{eid}",
+                  "down": f"{modid}:blocks/{eid}",
+                  "east": f"{modid}:blocks/{eid}",
+                  "west": f"{modid}:blocks/{eid}",
+                  "south": f"{modid}:blocks/{eid}",
+                  "north": f"{modid}:blocks/{eid}"
+              }
+            }
+        else:
+            print("Canceled: Invalid model type.")
+            mdl.close()
+            return
         json.dump(dat, mdl)
         mdl.close()
         print("Success: block model file setup completed.")
@@ -227,11 +259,21 @@ def createSimpleBlock(modid, eid, name):
     # blockstate
     try:
         bstate = open(index['dir_bs'] + f"{eid}.json", 'w')
-        dat = {
-            "variants": {
-                "": {"model": f"{modid}:block/{eid}"}
+        if mm=='rotate':
+            dat = {
+                "variants": {
+                    "facing=east": {"model": f"{modid}:block/{eid}", "y": 90},
+                    "facing=west": {"model": f"{modid}:block/{eid}", "y": 270},
+                    "facing=north": {"model": f"{modid}:block/{eid}"},
+                    "facing=south": {"model": f"{modid}:block/{eid}", "y": 180}
+                }
             }
-        }
+        else:
+            dat = {
+                "variants": {
+                    "": {"model": f"{modid}:block/{eid}"}
+                }
+            }
         json.dump(dat, bstate)
         bstate.close()
         print("Success: blockstate file setup completed.")
@@ -315,14 +357,23 @@ def createTag(modid, type, tid):
 def createStairsKit(modid, eid, name):
     stairs: BlockStateLib.Stairs = BlockStateLib.Stairs(index, modid, eid, name)
 
+def createCrop(modid, eid, name, stages):
+    crop: BlockStateLib.Crop = BlockStateLib.Crop(index, modid, eid, name, stages)
+
 while True:
     print('0. setup(-1 for setup forge directory; -2 for download main files"Register, tagDeving")')
+    print('  -3. create res for handworking.')
     print('1. res add item')
     print('2. res add block')
     if "BlockStateLib" in dlc:
         print("  21. res add stairs")
+        print("  22. res add crop")
     print('3. add trans tooltip')
     print('4. add custom mod tag')
+    if "JavaGen" in dlc:
+        print("51. generate TileEntity preset.")
+        print("52. generate Container preset.")
+        print("53. generate ContainerScreen preset.")
     mode=int(input("mode: "))
     if mode==0:
         mainSetup(MOD_ID)
@@ -330,6 +381,8 @@ while True:
         forgeSetup()
     elif mode==-2:
         downloadMainFiles()
+    elif mode==-3:
+        handJsonSetup(MOD_ID)
     #item adder
     elif mode==1:
         eid = str(input('item id: '))
@@ -340,7 +393,8 @@ while True:
     elif mode==2:
         eid = str(input('block id: '))
         name = str(input('block name: '))
-        createSimpleBlock(MOD_ID, eid, name)
+        mm = str(input('model type(all/sided/rotate): '))
+        createSimpleBlock(MOD_ID, eid, name, mm)
     elif mode==21:
         if "BlockStateLib" in dlc:
             eid = str(input("stairs id: "))
@@ -348,13 +402,38 @@ while True:
             createStairsKit(MOD_ID, eid, name)
         else:
             print("BlockStateLib required.")
+    elif mode==22:
+        if "BlockStateLib" in dlc:
+            eid = str(input("crop id: "))
+            name = str(input("crop name: "))
+            stages = int(input("crop stage count: "))
+            createCrop(MOD_ID, eid, name, stages)
+        else:
+            print("BlockStateLib required.")
     #tooltips adder
-    if mode==3:
+    elif mode==3:
         eid = str(input("tooltip id: "))
         tt = str(input("tooltip text: "))
         createTooltip(MOD_ID, eid, tt)
     #tag adder
-    if mode==4:
+    elif mode==4:
         type = str(input("tag type(block/item): "))
         tid = str(input("tag id: "))
         createTag(MOD_ID, type, tid)
+
+    #JavaGen dlc
+    elif mode==51:
+        if "JavaGen" in dlc:
+            JavaGen.create_tileentity()
+        else:
+            print("JavaGen required.")
+    elif mode==52:
+        if "JavaGen" in dlc:
+            JavaGen.create_container()
+        else:
+            print("JavaGen required.")
+    elif mode==53:
+        if "JavaGen" in dlc:
+            JavaGen.create_containerscreen()
+        else:
+            print("JavaGen required.")
